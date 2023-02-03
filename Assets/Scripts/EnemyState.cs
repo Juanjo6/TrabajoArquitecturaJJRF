@@ -2,12 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyState : MonoBehaviour
+/// <summary>
+/// Class that manages the different states of the enemy
+/// </summary>
+
+[AddComponentMenu("Aventura_Trófica/EnemyState")]
+public class EnemyState
 {
     //Enumeración de estados por los que puede pasar el guarda
     public enum STATE
     {
-        IDLE, PURSUE,
+        IDLE, SHOOT,
     };
 
     //Enumeración de eventos por los que debe pasar cada estado
@@ -48,7 +53,7 @@ public class EnemyState : MonoBehaviour
     public virtual void Update() { currentEvent = EVENT.UPDATE; }
     public virtual void Exit() { currentEvent = EVENT.EXIT; }
 
-    //Este método nos sirve para cambiar entre los diferentes métodos que cambian los eventos de un estado
+    // Method used to change between different stages that group what the enemy can do
     public EnemyState Process()
     {
         if (currentEvent == EVENT.ENTER) Enter();
@@ -56,28 +61,21 @@ public class EnemyState : MonoBehaviour
         if (currentEvent == EVENT.EXIT)
         {
             Exit();
-            //Nos devolvería el estado al que iríamos desde el que nos encontramos
             return nextState;
         }
-        //Esto nos devolvería el mismo estado en el que nos encontramos si no nos ha devuelto ningún otro
         return this;
     }
 
-    //Este método nos sirve para detectar si el npc ve al jugador
+    // Method used to check if the enemy can see the player
     public bool CanSeePlayer()
     {
-        //Referencia para conocer la distancia y dirección entre el guardia y el jugador
+        // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
         Vector3 direction = player.position - npc.transform.position;
-        // La función angle calcula el ángulo entre dos vectores
         float angle = Vector3.Angle(direction, npc.transform.forward);
-        //Si la distancia entre el jugador y el guardia y también el ángulo de este son menores que los estipulados para que nos vea
         if (direction.magnitude < visDist && angle < visAngle)
         {
-            //El guardia puede ver al jugador
             return true;
         }
-        //Si el guardia no nos puede ver
         return false;
     }
-
 }

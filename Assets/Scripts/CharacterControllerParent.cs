@@ -2,32 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class parent to all the characters, containing shared functionality
+/// </summary>
+
+[AddComponentMenu("Aventura_Trófica/CharacterControllerParent")]
 public abstract class CharacterControllerParent : MonoBehaviour
 {
+	//Parameters
 	public CharacterController controller;
 	public float speed = 6.0F;
 	public float gravity = 20.0F;
 	public bool personajeActivo = false;
+	public float flyImpulse;
 
-	protected Vector3 moveDirection = Vector3.zero;
-
-	//Relativo al pivote de la camara
+	// Camera
 	public Transform piv_Cam;
 
+	// Animation
 	public Animator animator;
 
-	// Para hacer pruebas con el raycast
+	// Internal management of the movement
+	protected Vector3 moveDirection = Vector3.zero;
+
+	// In order to make testing
 	RaycastHit hit; // Variable que guarda con lo que ha chocado el raycast
 	public float raycastWallRange = 2.0f;
 
-	// Cuáles son los muros para este personaje
+	// Climbing
+	// What is consider a climbable wall to the character
 	public LayerMask milayerWall = 6;
-
 	public bool onWall = false;
-	//public bool onWallGo = false;
 
-	public float flyImpulse;
-
+	// Constructor used to initialize this class' instances
     public CharacterControllerParent (CharacterController _controller, float _speed, float _gravity)
     {
     	controller = _controller;
@@ -35,6 +42,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
     	gravity = _gravity;
     }
 
+	// Used right now to do some testing
     private void FixedUpdate()
 	{
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
@@ -54,9 +62,9 @@ public abstract class CharacterControllerParent : MonoBehaviour
 		}
 	}
 
+	// Contains the common movement of all characters
 	void Update()
 	{
-	
 		if (personajeActivo == true)
         {
 			Vector3 tempDirection = piv_Cam.TransformDirection(
@@ -97,11 +105,6 @@ public abstract class CharacterControllerParent : MonoBehaviour
 		}
 	}
 
+	// Method used by some characters to fly
 	public abstract void Fly();
-
-	//public void ClimbWall()
- //   {
-	//	if (onWall) onWallGo = true;
-
-	//}
 }

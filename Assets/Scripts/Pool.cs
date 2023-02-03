@@ -5,8 +5,8 @@ using UnityEngine;
 /// <summary>
 /// Class of objects that will be initialized waiting to be used, rather than being creating and destroying them
 /// </summary>
+
 [AddComponentMenu("Aventura_Trófica/Pool")]
-//[System.Serializable]
 public class Pool : MonoBehaviour
 {
     public static Pool singleton;
@@ -38,6 +38,7 @@ public class Pool : MonoBehaviour
     {
         for (int i = 0; i < pooledItems.Count; i++)
         {
+            // If this item isn't active and the tag is the same:
             if (!pooledItems[i].activeInHierarchy && pooledItems[i].CompareTag(tag))
             {
                 return pooledItems[i];

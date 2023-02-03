@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class that contains the details of the Gusano character
+/// </summary>
+
+[AddComponentMenu("Aventura_Trófica/ControladorGusano")]
 public class ControladorGusano : CharacterControllerParent
 {
     // Como estática es que solo puede existir una, le tengo que hacer una a cada subpersonaje

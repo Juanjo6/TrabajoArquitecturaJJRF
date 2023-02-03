@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class that contains the details of the Lagarto character
+/// </summary>
+
+[AddComponentMenu("Aventura_Trófica/ControladorLagarto")]
 public class ControladorLagarto : CharacterControllerParent
 {
     public static ControladorLagarto instance;

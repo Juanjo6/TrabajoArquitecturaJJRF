@@ -5,12 +5,15 @@ using UnityEngine;
 /// <summary>
 /// A simple class used to add force to a projectile
 /// </summary>
+
+[AddComponentMenu("Aventura_Trófica/Spawner")]
 public class Spawner : MonoBehaviour
 {
     public static Spawner singleton;
 
     public GameObject projectile;
     public bool isListExpandible;
+    public Transform spawnerPosition;
 
     private void Awake()
     {
@@ -32,9 +35,26 @@ public class Spawner : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    // Method used to shooting
+    public void Shooting()
     {
-        
+        // Chances of shooting
+        if (Random.Range(0, 100) < 1)
+        {
+            // Creamos una referencia al objeto que queremos usar
+            GameObject ball = Pool.singleton.Get("Ball");
+            // If the reference is full
+            if (ball != null)
+            {
+                // Creater ball in the spawner
+                ball.transform.position = this.transform.position;
+                ball.SetActive(true);
+            }
+            else if (isListExpandible)
+            {
+                Pool.singleton.AddInstanceToList(Instantiate(this.projectile, new Vector3(spawnerPosition.position.x,
+                    spawnerPosition.position.y, spawnerPosition.position.z), Quaternion.identity));
+            }
+        }
     }
 }

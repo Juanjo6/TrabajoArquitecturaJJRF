@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class that contains the details of the Mariposa character
+/// </summary>
+
+[AddComponentMenu("Aventura_Trófica/ControladorMariposa")]
 public class ControladorMariposa : CharacterControllerParent
 {
     public static ControladorMariposa instance;
@@ -16,6 +21,7 @@ public class ControladorMariposa : CharacterControllerParent
 
     }
 
+    // Makes the Mariposa go up a certain amount
     public override void Fly()
     {
         moveDirection.y = flyImpulse;

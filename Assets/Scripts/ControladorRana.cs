@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Class that contains the details of the Rana character
+/// </summary>
+
+[AddComponentMenu("Aventura_Trófica/ControladorRana")]
 public class ControladorRana : CharacterControllerParent
 {
     public static ControladorRana instance;

@@ -11,7 +11,7 @@ public class EnemyShootState : EnemyState
         : base(_npc, _player)
     {
         //El estado actual en este caso es PURSUE
-        currentState = STATE.PURSUE;
+        currentState = STATE.SHOOT;
     }
 
     //Sobreescribimos el evento Enter de ese estado 
@@ -31,6 +31,8 @@ public class EnemyShootState : EnemyState
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
         }
+
+        Spawner.singleton.Shooting();
     }
     //Sobreescribimos el evento Exit de ese estado 
     public override void Exit()

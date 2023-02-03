@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * A class used to move the camera between characters
+*/
+
+[AddComponentMenu("Aventura_Trófica/CameraController")]
 public class CameraController : MonoBehaviour
 {
 	public GameObject personaje;
@@ -22,7 +27,7 @@ public class CameraController : MonoBehaviour
 		// también
 		// El vector3Temp.position se usa para redondear y darle un buen efecto al lerp  y lo hace codependiente del movimiento en ese eje
 
-		// Controla la cámara cuando se está trepando
+		// Controls the camera when the character is climbing a wall
 		if (ControladorGusano.instance.personajeActivo == true && ControladorGusano.instance.onWall)
 		{												
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
@@ -30,14 +35,14 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, personaje.transform.rotation, Time.deltaTime * smoothRotation);
 		}
-		// Controla la cámara del modo normal del juego
+		// Controls the camera in the normal mode of the game
 		if (ControladorGusano.instance.personajeActivo == true && !ControladorGusano.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
 		}
-		
+
 		if (ControladorLagarto.instance.personajeActivo == true && ControladorLagarto.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
@@ -45,6 +50,7 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, personaje.transform.rotation, Time.deltaTime * smoothRotation);
 		}
+
 		if (ControladorLagarto.instance.personajeActivo == true && !ControladorLagarto.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
@@ -59,7 +65,7 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, personaje.transform.rotation, Time.deltaTime * smoothRotation);
 		}
-		// Controla la cámara del modo normal del juego
+
 		if (ControladorMariposa.instance.personajeActivo == true && !ControladorMariposa.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
@@ -74,7 +80,7 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, personaje.transform.rotation, Time.deltaTime * smoothRotation);
 		}
-		// Controla la cámara del modo normal del juego
+
 		if (ControladorRana.instance.personajeActivo == true && !ControladorRana.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
@@ -84,9 +90,9 @@ public class CameraController : MonoBehaviour
 		
 	}
 
+	// Method that makes camera work for one character or another
 	public void CambiarPj(GameObject newPj)
     {
 		personaje = newPj;
-		// transform.position = newPj.transform.position;
     }
 }

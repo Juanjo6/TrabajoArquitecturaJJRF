@@ -2,6 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Auxiliary class that facilitates the transition of the camera between characters via buttons
+*/
+
+[AddComponentMenu("Aventura_Trófica/CameraChange")]
 public class CameraChange : MonoBehaviour
 {
     [field: SerializeField] private GameObject pivoteCamara1;

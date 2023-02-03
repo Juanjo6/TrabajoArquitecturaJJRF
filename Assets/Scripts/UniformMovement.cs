@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// A simple class used to add force to a projectile
-/// </summary>
+/*
+ *Looping the object transform across a rectangle area
+*/
 [AddComponentMenu("Aventura_Trófica/UniformMovement")]
 public class UniformMovement : MonoBehaviour
 {
@@ -16,9 +16,6 @@ public class UniformMovement : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Asset")
-        {
             this.gameObject.SetActive(false);
-        }
     }
 }

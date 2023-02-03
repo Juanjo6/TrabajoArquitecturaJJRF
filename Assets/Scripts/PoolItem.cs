@@ -5,8 +5,10 @@ using UnityEngine;
 /// <summary>
 /// Class to reference Pool's items
 /// </summary>
+
 [AddComponentMenu("Aventura_Trófica/PoolItem")]
-public class PoolItem : MonoBehaviour
+[System.Serializable] // To be able to add them via inspector
+public class PoolItem // It seems it can not inherit form MonoBehaviour and be recognized as a valid parameter at the same time
 {
     public GameObject prefab;
     public int amount;

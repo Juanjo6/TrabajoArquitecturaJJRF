@@ -2,12 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Class parent to all the enemies, containing shared functionality
+*/
+
+[AddComponentMenu("Aventura_Trófica/EnemyControllerParent")]
 public class EnemyControllerParent : MonoBehaviour
 {
-    public float speed = 6.0F;
+	// Parameters
+	public float speed = 6.0F;
     public float gravity = 20.0F;
 
+	// Target
 	public Transform posObjetivo;
+
+	// What the enemy is doing
+	EnemyState currentState;
 
 	private void FixedUpdate()
 	{
@@ -25,8 +35,13 @@ public class EnemyControllerParent : MonoBehaviour
 		}
 	}
 
-	void Update()
+    private void Start()
     {
+		currentState = new EnemyIdleState(this.gameObject, this.posObjetivo);
+	}
+    void Update()
+    {
+		currentState = currentState.Process();
 		/*
 		Vector3 direction = posObjetivo.position -(transform.forward + transform.up);
 		float a = Vector3.Angle(direction, transform.forward);
@@ -39,5 +54,5 @@ public class EnemyControllerParent : MonoBehaviour
 		}
 		else Debug.Log("no te veo");
 		*/
-    }
+	}
 }
