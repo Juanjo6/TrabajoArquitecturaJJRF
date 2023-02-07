@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour
         if (Random.Range(0, 100) < 1)
         {
             // Creamos una referencia al objeto que queremos usar
-            GameObject ball = Pool.singleton.Get("Ball");
+            GameObject ball = Pool.singleton.Get("Bola");
             // If the reference is full
             if (ball != null)
             {
