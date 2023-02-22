@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// A simple class used to add force to a projectile
+/// Classs used to spawn projectiles
 /// </summary>
 
 [AddComponentMenu("Aventura_Trófica/Spawner")]

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyShootState : EnemyState
 {
-
+    private int speed = 2;
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
     public EnemyShootState(GameObject _npc, Transform _player)
@@ -31,6 +31,10 @@ public class EnemyShootState : EnemyState
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
         }
+
+        float step = speed * Time.deltaTime;
+
+        npc.transform.position = Vector3.MoveTowards(npc.transform.position, player.position, step);
 
         Spawner.singleton.Shooting();
     }
