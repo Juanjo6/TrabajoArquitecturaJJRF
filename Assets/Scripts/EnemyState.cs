@@ -12,7 +12,7 @@ public class EnemyState
     //Enumeración de estados por los que puede pasar el guarda
     public enum STATE
     {
-        IDLE, SHOOT,
+        MOVING, ATTACK,
     };
 
     //Enumeración de eventos por los que debe pasar cada estado
@@ -30,19 +30,22 @@ public class EnemyState
     protected Transform player;
     //Referencia a las clases derivadas por las que nos vamos a mover entre estados
     protected EnemyState nextState;
+    // Velocidad del enemigo
+    protected float speed;
 
     //Variables con información concreta con la que trabajamos
     float visDist = 5.0f;
     float visAngle = 60.0f;
 
     //Creamos el constructor de la clase State
-    public EnemyState(GameObject _npc, Transform _player)
+    public EnemyState(GameObject _npc, Transform _player, float _speed)
     {
         //Rellenamos las referencias previamente declaradas
         npc = _npc;
         //Al usar el constructor le decimos que para ese estado entrará en su evento de ENTER
         currentEvent = EVENT.ENTER;
         player = _player;
+        speed = _speed;
     }
 
     //Virtual -> se usa para modificar una declaración de método, propiedad o evento y permite que

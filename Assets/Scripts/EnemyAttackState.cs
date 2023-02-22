@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShootState : EnemyState
+public class EnemyAttackState : EnemyState
 {
-    private int speed = 2;
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyShootState(GameObject _npc, Transform _player)
-        : base(_npc, _player)
+    public EnemyAttackState(GameObject _npc, Transform _player, float _speed)
+        : base(_npc, _player, _speed)
     {
         //El estado actual en este caso es PURSUE
-        currentState = STATE.SHOOT;
+        currentState = STATE.ATTACK;
     }
 
     //Sobreescribimos el evento Enter de ese estado 
@@ -27,7 +26,7 @@ public class EnemyShootState : EnemyState
         if (!CanSeePlayer())
         {
             //El guardia pasa al estado de patrulla
-            nextState = new EnemyIdleState(npc, player);
+            nextState = new EnemyMovingState(npc, player, speed);
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
         }
@@ -36,7 +35,8 @@ public class EnemyShootState : EnemyState
 
         npc.transform.position = Vector3.MoveTowards(npc.transform.position, player.position, step);
 
-        Spawner.singleton.Shooting();
+        // Esto se usaba para disparar
+        // Spawner.singleton.Shooting();
     }
     //Sobreescribimos el evento Exit de ese estado 
     public override void Exit()

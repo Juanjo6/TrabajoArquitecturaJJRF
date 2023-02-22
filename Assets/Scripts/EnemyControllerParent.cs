@@ -37,7 +37,8 @@ public class EnemyControllerParent : MonoBehaviour
 
     private void Start()
     {
-		currentState = new EnemyIdleState(this.gameObject, this.posObjetivo);
+		// Añadir ifs para los distintos enemigos
+		currentState = new EnemyMovingState(this.gameObject, this.posObjetivo, this.speed);
 	}
     void Update()
     {

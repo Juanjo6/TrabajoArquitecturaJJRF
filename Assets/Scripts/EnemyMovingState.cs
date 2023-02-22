@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIdleState : EnemyState
+public class EnemyMovingState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyIdleState(GameObject _npc, Transform _player)
-        : base(_npc, _player)
+    public EnemyMovingState(GameObject _npc, Transform _player, float _speed)
+        : base(_npc, _player, _speed)
     {
         //El estado actual en este caso es IDLE
-        currentState = STATE.IDLE;
+        currentState = STATE.MOVING;
     }
 
     //Sobreescribimos el evento Enter de ese estado 
@@ -27,7 +27,7 @@ public class EnemyIdleState : EnemyState
         if (CanSeePlayer())
         {
             //El siguiente estado entonces sería el estado de Persecución
-            nextState = new EnemyShootState(npc, player);
+            nextState = new EnemyAttackState(npc, player, speed);
             //El evento ahora será EXIT
             currentEvent = EVENT.EXIT;
         }

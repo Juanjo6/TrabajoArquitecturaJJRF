@@ -11,7 +11,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 {
 	//Parameters
 	public CharacterController controller;
-	public float speed = 6.0F;
+	public float speed = 6.0F;	// Esto pasarlo a cada hijo en concreto.
 	public float gravity = 20.0F;
 	public bool personajeActivo = false;
 	public float flyImpulse;
@@ -83,6 +83,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 					//Movimiento en el aire
 					moveDirection.x = tempDirection.x;
 					moveDirection.y -= gravity * Time.deltaTime; // Ahora mismo esto haría que cuando se cae al suelo la velocidad se conservase
+					// Podría usar un math.clamp o alguna cosa para capar la gravedad
 					moveDirection.z = tempDirection.z;
 				}
 				//ROTACION            
