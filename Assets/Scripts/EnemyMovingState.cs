@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyMovingState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyMovingState(GameObject _npc, Transform _player, float _speed)
-        : base(_npc, _player, _speed)
+    public EnemyMovingState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
+        : base(_ecp, _npc, _player, _speed, _agent)
     {
         //El estado actual en este caso es IDLE
         currentState = STATE.MOVING;
@@ -23,11 +24,13 @@ public class EnemyMovingState : EnemyState
     //Sobreescribimos el evento Update de ese estado 
     public override void Update()
     {
+        // Aquí va el código que le hace navegar el nav mesh. Por lo tanto, cada enemigo tendrá un nav mesh distinto
+
         //Si el guardia puede ver al enemigo
         if (CanSeePlayer())
         {
             //El siguiente estado entonces sería el estado de Persecución
-            nextState = new EnemyAttackState(npc, player, speed);
+            nextState = new EnemyAttackState(ecp, npc, player, speed, agent);
             //El evento ahora será EXIT
             currentEvent = EVENT.EXIT;
         }

@@ -57,7 +57,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 		else
 		{
 			Debug.DrawRay(transform.position, transform.forward * 1000, Color.white);
-			Debug.Log("Did not Hit");
+			// Debug.Log("Did not Hit");
 			onWall = false;
 		}
 	}
@@ -74,7 +74,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 				// Movimiento en el suelo
 				if (controller.isGrounded)
 				{
-					Debug.Log("is grounded");
+					// Debug.Log("is grounded");
 					moveDirection.x = tempDirection.x;
 					moveDirection.z = tempDirection.z;
 				}

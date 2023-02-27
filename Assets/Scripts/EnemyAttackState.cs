@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAttackState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyAttackState(GameObject _npc, Transform _player, float _speed)
-        : base(_npc, _player, _speed)
+    public EnemyAttackState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
+        : base(_ecp, _npc, _player, _speed, _agent)
     {
         //El estado actual en este caso es PURSUE
         currentState = STATE.ATTACK;
@@ -21,19 +22,20 @@ public class EnemyAttackState : EnemyState
     }
 
     public override void Update()
-
     {
         if (!CanSeePlayer())
         {
             //El guardia pasa al estado de patrulla
-            nextState = new EnemyMovingState(npc, player, speed);
+            nextState = new EnemyMovingState(ecp, npc, player, speed, agent);
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
         }
+        agent.destination = player.position;    // Por aquí irá el goal
 
-        float step = speed * Time.deltaTime;
+        // float step = speed * Time.deltaTime;
+        // npc.transform.position = Vector3.MoveTowards(npc.transform.position, player.position, step);
 
-        npc.transform.position = Vector3.MoveTowards(npc.transform.position, player.position, step);
+        // Si el npc colisiona con el jugador, hará una animación y bajará su velocidad
 
         // Esto se usaba para disparar
         // Spawner.singleton.Shooting();
