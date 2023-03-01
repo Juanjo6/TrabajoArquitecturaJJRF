@@ -19,11 +19,12 @@ public class EnemyControllerParent : MonoBehaviour
 
 	// Variables del Raycast
 	RaycastHit hit;
-	public float raycastRange;
 	public LayerMask milayerObjetivo;
+	public float visionDistance;
+	public float visionAngle;
 
 	// Si CUALQUIER personaje se encuentra en frente del nps. Accesor escribir: propac + tabulador
-    private bool canRaycastPlayer;
+	private bool canRaycastPlayer;
     public bool CanRaycastPlayer
 	{
         get { return canRaycastPlayer; }
@@ -38,16 +39,19 @@ public class EnemyControllerParent : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-		Debug.DrawRay(transform.position, (posObjetivo.position - transform.position), Color.red);
+		Debug.DrawRay(transform.position, (posObjetivo.position - transform.position), Color.red); // transform.forward * 10
 		// Distincion entre rayo físico y dibujado
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
 
 		if (Physics.Raycast(transform.position, (posObjetivo.position - transform.position), 
-			out hit, raycastRange, milayerObjetivo))
+			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
 		{
-			Debug.Log(hit.collider.CompareTag("Player"));
-			canRaycastPlayer = true;
-			//Debug.Log("te cogí");
+            if (hit.collider.CompareTag("Player"))
+            {
+				// Debug.Log(hit.collider.CompareTag("Player"));
+				Debug.Log(hit.collider);
+				canRaycastPlayer = true;
+			}
 		}
 		else
 		{		

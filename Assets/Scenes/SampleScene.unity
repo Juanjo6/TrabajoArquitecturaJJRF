@@ -857,7 +857,7 @@ GameObject:
   - component: {fileID: 289001764}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -894,10 +894,12 @@ MonoBehaviour:
   posObjetivo: {fileID: 738414065}
   agent: {fileID: 289001764}
   speed: 6
-  raycastRange: 5
+  raycastRange: 10
   milayerObjetivo:
     serializedVersion: 2
     m_Bits: 192
+  visionDistance: 10
+  visionAngle: 60
 --- !u!136 &289001761
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -907,7 +909,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 289001758}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1

@@ -51,7 +51,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 			// Le dice que mi pa'lante se transforma en el palante de donde da. Es para mirar de frente a las paredes siempre.
 			transform.forward = -hit.normal; 
 			Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-			Debug.Log("Did Hit");
+			//Debug.Log("Did Hit");
 			onWall = true;
 		}
 		else

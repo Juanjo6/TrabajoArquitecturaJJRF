@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class EnemyAttackState : EnemyState
 {
+    private float maxPlayerChaseDistance = 10f;
+
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
     public EnemyAttackState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
@@ -12,6 +14,7 @@ public class EnemyAttackState : EnemyState
     {
         //El estado actual en este caso es PURSUE
         currentState = STATE.ATTACK;
+
     }
 
     //Sobreescribimos el evento Enter de ese estado 
@@ -23,22 +26,26 @@ public class EnemyAttackState : EnemyState
 
     public override void Update()
     {
-        if (!CanSeePlayer())
+        float distance = Vector3.Distance(player.position, npc.transform.position);
+
+        if(CanSeePlayer())
+        {
+            agent.destination = player.position;    // Por aquí podrá ir el goal
+        }
+        else if(distance > ecp.visionDistance)
         {
             //El guardia pasa al estado de patrulla
             nextState = new EnemyMovingState(ecp, npc, player, speed, agent);
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
+            // float step = speed * Time.deltaTime;
+            // npc.transform.position = Vector3.MoveTowards(npc.transform.position, player.position, step);
+
+            // Si el npc colisiona con el jugador, hará una animación y bajará su velocidad
+
+            // Esto se usaba para disparar
+            // Spawner.singleton.Shooting();
         }
-        agent.destination = player.position;    // Por aquí irá el goal
-
-        // float step = speed * Time.deltaTime;
-        // npc.transform.position = Vector3.MoveTowards(npc.transform.position, player.position, step);
-
-        // Si el npc colisiona con el jugador, hará una animación y bajará su velocidad
-
-        // Esto se usaba para disparar
-        // Spawner.singleton.Shooting();
     }
     //Sobreescribimos el evento Exit de ese estado 
     public override void Exit()

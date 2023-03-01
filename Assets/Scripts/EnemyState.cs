@@ -25,7 +25,7 @@ public class EnemyState
     // 
     protected EnemyControllerParent ecp;
 
-    // Estado actual en el que se encuentra el enemigo
+    // Estado actual en el que se encuentra el enemigo. Es público por que le pregunto a dónde ir.
     public STATE currentState;
     // Evento actual en el que está el estado en el que nos encontramos
     protected EVENT currentEvent;
@@ -42,10 +42,6 @@ public class EnemyState
     protected EnemyState nextState;
     // Velocidad del enemigo
     protected float speed;
-
-    //Variables con información concreta con la que trabajamos
-    float visionDistance = 5.0f;
-    float visionAngle = 60.0f;
 
     //Creamos el constructor de la clase State
     public EnemyState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
@@ -89,7 +85,7 @@ public class EnemyState
         Vector3 direction = player.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
         // Debug.Log("angle = " + angle);
-        if (direction.magnitude < visionDistance && angle < visionAngle && ecp.CanRaycastPlayer)
+        if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastPlayer)
         {
             return true;
         }
