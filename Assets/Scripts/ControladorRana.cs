@@ -21,6 +21,6 @@ public class ControladorRana : CharacterControllerParent
 
     }
 
-    public override void Fly() { }
+    public override void Special() { }
 
 }

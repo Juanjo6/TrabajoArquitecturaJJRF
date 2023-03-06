@@ -21,6 +21,6 @@ public class ControladorLagarto : CharacterControllerParent
 
     }
 
-    public override void Fly() { }
+    public override void Special() { }
 
 }

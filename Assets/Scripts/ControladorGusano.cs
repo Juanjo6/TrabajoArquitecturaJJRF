@@ -21,18 +21,19 @@ public class ControladorGusano : CharacterControllerParent
     {
 
     }
-	/*private void Update()
+	private void Update()
 	{
-		if (ControladorGusano.instance.personajeActivo)
-		{
+		if (personajeActivo == true)
+        {
 			Vector3 tempDirection = piv_Cam.TransformDirection(
 						new Vector3(SimpleInput.GetAxis("Horizontal"), 0, SimpleInput.GetAxis("Vertical"))) * speed;
 			if (!onWall)
 			{
+				// Debug.Log("is grounded");
 				// Movimiento en el suelo
 				if (controller.isGrounded)
 				{
-					Debug.Log("is grounded");
+					// Debug.Log("is grounded");
 					moveDirection.x = tempDirection.x;
 					moveDirection.z = tempDirection.z;
 				}
@@ -41,6 +42,7 @@ public class ControladorGusano : CharacterControllerParent
 					//Movimiento en el aire
 					moveDirection.x = tempDirection.x;
 					moveDirection.y -= gravity * Time.deltaTime; // Ahora mismo esto haría que cuando se cae al suelo la velocidad se conservase
+					// Podría usar un math.clamp o alguna cosa para capar la gravedad
 					moveDirection.z = tempDirection.z;
 				}
 				//ROTACION            
@@ -48,8 +50,8 @@ public class ControladorGusano : CharacterControllerParent
 				{
 					transform.forward = tempDirection.normalized;
 				}
-			}
 
+			}
 			//Estoy pegado a una pared y este es el comportamiento mientras estoy pegado
 			// Según se desarrolle el juego, habrá que ir puliéndolo
 			if (onWall)
@@ -61,9 +63,13 @@ public class ControladorGusano : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
-		
-	}*/
+	}
 
-    public override void Fly() { }
-
+	public override void Special() 
+	{ 
+		if(isThereWall == true)
+        {
+			onWall = false;
+        }
+	}
 }

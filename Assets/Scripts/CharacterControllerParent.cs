@@ -14,6 +14,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 	public float speed = 6.0F;	// Esto pasarlo a cada hijo en concreto.
 	public float gravity = 20.0F;
 	public bool personajeActivo = false;
+
 	public float flyImpulse;
 
 	// Camera
@@ -27,11 +28,12 @@ public abstract class CharacterControllerParent : MonoBehaviour
 
 	// In order to make testing
 	RaycastHit hit; // Variable que guarda con lo que ha chocado el raycast
-	public float raycastWallRange = 2.0f;
+	public float raycastWallRange = 1.5f;
 
 	// Climbing
 	// What is consider a climbable wall to the character
 	public LayerMask milayerWall = 6;
+	public bool isThereWall = false;
 	public bool onWall = false;
 
 	// Constructor used to initialize this class' instances
@@ -56,7 +58,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 		}
 		else
 		{
-			Debug.DrawRay(transform.position, transform.forward * 1000, Color.white);
+			Debug.DrawRay(transform.position, transform.forward * raycastWallRange, Color.white);
 			// Debug.Log("Did not Hit");
 			onWall = false;
 		}
@@ -65,12 +67,13 @@ public abstract class CharacterControllerParent : MonoBehaviour
 	// Contains the common movement of all characters
 	void Update()
 	{
-		if (personajeActivo == true)
+		/*if (personajeActivo == true)
         {
 			Vector3 tempDirection = piv_Cam.TransformDirection(
 						new Vector3(SimpleInput.GetAxis("Horizontal"), 0, SimpleInput.GetAxis("Vertical"))) * speed;
 			if (!onWall)
 			{
+				// Debug.Log("is grounded");
 				// Movimiento en el suelo
 				if (controller.isGrounded)
 				{
@@ -103,9 +106,9 @@ public abstract class CharacterControllerParent : MonoBehaviour
 
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
-		}
+		}*/
 	}
 
 	// Method used by some characters to fly
-	public abstract void Fly();
+	public abstract void Special();
 }

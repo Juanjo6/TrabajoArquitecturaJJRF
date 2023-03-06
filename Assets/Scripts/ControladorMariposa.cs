@@ -22,7 +22,7 @@ public class ControladorMariposa : CharacterControllerParent
     }
 
     // Makes the Mariposa go up a certain amount
-    public override void Fly()
+    public override void Special()
     {
         moveDirection.y = flyImpulse;
     }
