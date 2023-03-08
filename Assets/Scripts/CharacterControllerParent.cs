@@ -11,11 +11,12 @@ public abstract class CharacterControllerParent : MonoBehaviour
 {
 	//Parameters
 	public CharacterController controller;
+
 	public float speed = 6.0F;	// Esto pasarlo a cada hijo en concreto.
 	public float gravity = 20.0F;
 	public bool personajeActivo = false;
 
-	public float flyImpulse;
+	protected float flyImpulse = 1f;
 
 	// Camera
 	public Transform piv_Cam;

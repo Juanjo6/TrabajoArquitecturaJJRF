@@ -43,21 +43,6 @@ public class CameraController : MonoBehaviour
 				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
 		}
 
-		if (ControladorLagarto.instance.personajeActivo == true && ControladorLagarto.instance.onWall)
-		{
-			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
-
-			transform.rotation = Quaternion.Lerp(
-				transform.rotation, personaje.transform.rotation, Time.deltaTime * smoothRotation);
-		}
-
-		if (ControladorLagarto.instance.personajeActivo == true && !ControladorLagarto.instance.onWall)
-		{
-			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
-			transform.rotation = Quaternion.Lerp(
-				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
-		}
-
 		if (ControladorMariposa.instance.personajeActivo == true && ControladorMariposa.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
