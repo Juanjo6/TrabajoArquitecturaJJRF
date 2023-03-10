@@ -17,7 +17,7 @@ public class BlueBeetleController : EnemyControllerParent
     }
 
     public BlueBeetleController(float _speed)
-    : base( _speed)
+    : base(_speed)
     {
 
     }

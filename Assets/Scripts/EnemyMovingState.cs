@@ -7,8 +7,9 @@ public class EnemyMovingState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyMovingState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
-        : base(_ecp, _npc, _player, _speed, _agent)
+    public EnemyMovingState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transRana,
+        float _speed, NavMeshAgent _agent)
+        : base(_ecp, _npc, _transGusano, _transRana, _speed, _agent)
     {
         //El estado actual en este caso es IDLE
         currentState = STATE.MOVING;
@@ -27,10 +28,10 @@ public class EnemyMovingState : EnemyState
         // Aquí va el código que le hace navegar el nav mesh. Por lo tanto, cada enemigo tendrá un nav mesh distinto
 
         //Si el guardia puede ver al enemigo
-        if (CanSeePlayer())
+        if (CanSeeGusano() || CanSeeRana())
         {
             //El siguiente estado entonces sería el estado de Persecución
-            nextState = new EnemyAttackState(ecp, npc, player, speed, agent);
+            nextState = new EnemyAttackState(ecp, npc, transGusano, transRana, speed, agent);
             //El evento ahora será EXIT
             currentEvent = EVENT.EXIT;
         }

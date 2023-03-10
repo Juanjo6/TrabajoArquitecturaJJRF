@@ -13,7 +13,7 @@ public class EnemyState
     //Enumeración de estados por los que puede pasar el guarda
     public enum STATE
     {
-        MOVING, ATTACK,
+        MOVING, ATTACK
     };
 
     //Enumeración de eventos por los que debe pasar cada estado
@@ -36,7 +36,8 @@ public class EnemyState
     protected NavMeshAgent agent;
     // Target
     protected Transform goal;
-    protected Transform player;
+    protected Transform transGusano;
+    protected Transform transRana;
 
     // Referencia a las clases derivadas por las que nos vamos a mover entre estados
     protected EnemyState nextState;
@@ -44,7 +45,8 @@ public class EnemyState
     protected float speed;
 
     //Creamos el constructor de la clase State
-    public EnemyState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
+    public EnemyState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transRana, float _speed, 
+        NavMeshAgent _agent)
     {
         // Referencia al script padre del enemigo
         ecp = _ecp;
@@ -52,7 +54,8 @@ public class EnemyState
         this.npc = _npc;
         //Al usar el constructor le decimos que para ese estado entrará en su evento de ENTER
         currentEvent = EVENT.ENTER;
-        player = _player;
+        transGusano = _transGusano;
+        transRana = _transRana;
         speed = _speed;
         agent = _agent;
     }
@@ -79,14 +82,29 @@ public class EnemyState
     }
 
     // Method used to check if the enemy can see the player
-    public bool CanSeePlayer()
+    public bool CanSeeGusano()
     {
         // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
-        Vector3 direction = player.position - npc.transform.position;
+        Vector3 direction = transGusano.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
         // Debug.Log("angle = " + angle);
-        if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastPlayer)
+        if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterGusano)
         {
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool CanSeeRana()
+    {
+        // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
+        Vector3 direction = transRana.position - npc.transform.position;
+        float angle = Vector3.Angle(direction, npc.transform.forward);
+        // Debug.Log("angle = " + angle);
+        if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterRana)
+        {
+            // Debug.Log("hola");
             return true;
         }
         return false;

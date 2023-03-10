@@ -10,8 +10,9 @@ using UnityEngine.AI;
 [AddComponentMenu("Aventura_Trófica/EnemyControllerParent")]
 public class EnemyControllerParent : MonoBehaviour
 {
-	// Posición del jugador. Hace falta usarla porque es diferente de los goals del enemigo.
-	public Transform posObjetivo;
+	// Posición del personaje. Hace falta usarla porque es diferente de los goals del enemigo.
+	public Transform posGusano;
+	public Transform posRana;
 	// Componente agregado a un personaje móvil en el juego que le permite navegar la escena usando NavMesh
 	public NavMeshAgent agent;
 	// Parameters
@@ -24,14 +25,20 @@ public class EnemyControllerParent : MonoBehaviour
 	public float visionAngle;
 
 	// Si CUALQUIER personaje se encuentra en frente del nps. Accesor escribir: propac + tabulador
-	private bool canRaycastPlayer;
-    public bool CanRaycastPlayer
+	protected bool canRaycastCharacterGusano;
+    public bool CanRaycastCharacterGusano
 	{
-        get { return canRaycastPlayer; }
+        get { return canRaycastCharacterGusano; }
     }
 
-    // What the enemy is doing
-    EnemyState currentState;
+	protected bool canRaycastCharacterRana;
+	public bool CanRaycastCharacterRana
+	{
+		get { return canRaycastCharacterRana; }
+	}
+
+	// What the enemy is doing
+	protected EnemyState currentState;
 
 	public EnemyControllerParent(float _speed)
 	{
@@ -39,47 +46,46 @@ public class EnemyControllerParent : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-		//		Debug.DrawRay(transform.position, (posObjetivo.position - transform.position), Color.red); // transform.forward * 10
+		Debug.DrawRay(transform.position, (posGusano.position - transform.position), Color.red); // transform.forward * 10
+		Debug.DrawRay(transform.position, (posRana.position - transform.position), Color.red);
 		// Distincion entre rayo físico y dibujado
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
 
-		if (Physics.Raycast(transform.position, (posObjetivo.position - transform.position), 
+		if (Physics.Raycast(transform.position, (posGusano.position - transform.position), 
 			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
 		{
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("CharacterGusano"))
             {
-				// Debug.Log(hit.collider.CompareTag("Player"));
-				Debug.Log(hit.collider);
-				canRaycastPlayer = true;
+				canRaycastCharacterGusano = true;
 			}
 		}
 		else
-		{		
-			canRaycastPlayer = false;
-			//	Debug.DrawRay(transform.position, transform.forward * raycastRange, Color.white);
-			//	Debug.Log("hay algo en medio o no le veo");
+		{
+			canRaycastCharacterGusano = false;
+		}
+
+		if (Physics.Raycast(transform.position, (posRana.position - transform.position),
+			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
+		{
+			if (hit.collider.CompareTag("CharacterRana"))
+			{
+				canRaycastCharacterRana = true;
+			}
+		}
+		else
+		{
+			canRaycastCharacterRana = false;
 		}
 	}
 
     private void Start()
     {
 		// Añadir ifs para los distintos enemigos
-		currentState = new EnemyMovingState(this, this.gameObject, this.posObjetivo, this.speed, this.agent);
+		currentState = new EnemyMovingState(this, this.gameObject, this.posGusano, posRana, this.speed, this.agent);
 	}
-    void Update()
-    {
+
+	private void Update()
+	{
 		currentState = currentState.Process();
-		/*
-		Vector3 direction = posObjetivo.position -(transform.forward + transform.up);
-		float a = Vector3.Angle(direction, transform.forward);
-		Debug.Log(a);
-		// Compruebo si como enemigo veo al personaje
-		if (Vector3.Angle(direction, transform.forward) < 30f)
-		{
-			
-			Debug.Log("te veo");
-		}
-		else Debug.Log("no te veo");
-		*/
 	}
 }

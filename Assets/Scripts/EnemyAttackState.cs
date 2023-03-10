@@ -7,8 +7,9 @@ public class EnemyAttackState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyAttackState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
-        : base(_ecp, _npc, _player, _speed, _agent)
+    public EnemyAttackState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transRana,
+        float _speed, NavMeshAgent _agent)
+        : base(_ecp, _npc, _transGusano, _transRana, _speed, _agent)
     {
         //El estado actual en este caso es PURSUE
         currentState = STATE.ATTACK;
@@ -24,16 +25,25 @@ public class EnemyAttackState : EnemyState
 
     public override void Update()
     {
-        float distance = Vector3.Distance(player.position, npc.transform.position);
+        float distanceGusano = Vector3.Distance(transGusano.position, npc.transform.position);
+        float distanceRana = Vector3.Distance(transRana.position, npc.transform.position);
 
-        if(CanSeePlayer())
+        if (CanSeeGusano() || CanSeeRana())
         {
-            agent.destination = player.position;    // Por aquí podrá ir el goal
+            if (CanSeeGusano())
+            {
+                agent.destination = transGusano.position;    // Por aquí podrá ir el goal quizás
+            }
+            
+            if (CanSeeRana())
+            {
+                agent.destination = transRana.position;
+            }
         }
-        else if(distance > ecp.visionDistance)
+        else if(distanceGusano > ecp.visionDistance && distanceRana > ecp.visionDistance)
         {
             //El guardia pasa al estado de patrulla
-            nextState = new EnemyMovingState(ecp, npc, player, speed, agent);
+            nextState = new EnemyMovingState(ecp, npc, transGusano, transRana, speed, agent);
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
             // float step = speed * Time.deltaTime;
