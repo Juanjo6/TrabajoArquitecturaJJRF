@@ -12,7 +12,17 @@ public class ControladorGusano : CharacterControllerParent
     // Como estática es que solo puede existir una, le tengo que hacer una a cada subpersonaje
     public static ControladorGusano instance;
 
-    private void Awake()
+	// In order to make testing
+	RaycastHit hit; // Variable que guarda con lo que ha chocado el raycast
+	public float raycastWallRange = 1.5f;
+
+	// Climbing
+	// What is consider a climbable wall to the character
+	public LayerMask milayerWall = 6;
+	public bool isThereWall = false;
+	public bool onWall = false;
+
+	private void Awake()
     {
         instance = this;
     }
@@ -21,12 +31,30 @@ public class ControladorGusano : CharacterControllerParent
     {
 
     }
+	private void FixedUpdate()
+	{
+		// Comprueba si hay un muro(objeto) con esa layer con un raycast
+		if (Physics.Raycast(transform.position, transform.forward, out hit, raycastWallRange, milayerWall))
+		{
+			// Le dice que mi pa'lante se transforma en el palante de donde da. Es para mirar de frente a las paredes siempre.
+			transform.forward = -hit.normal;
+			Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+			//Debug.Log("Did Hit");
+			onWall = true;
+		}
+		else
+		{
+			Debug.DrawRay(transform.position, transform.forward * raycastWallRange, Color.white);
+			// Debug.Log("Did not Hit");
+			onWall = false;
+		}
+	}
 	private void Update()
 	{
 		if (personajeActivo == true)
         {
 			Vector3 tempDirection = piv_Cam.TransformDirection(
-						new Vector3(SimpleInput.GetAxis("Horizontal"), 0, SimpleInput.GetAxis("Vertical"))) * speed;
+						new Vector3(SimpleInput.GetAxis("Horizontal"), zero, SimpleInput.GetAxis("Vertical"))) * speed;
 			if (!onWall)
 			{
 				// Debug.Log("is grounded");
@@ -34,8 +62,9 @@ public class ControladorGusano : CharacterControllerParent
 				if (controller.isGrounded)
 				{
 					// Debug.Log("is grounded");
-					moveDirection.x = tempDirection.x;
+					moveDirection.x = tempDirection.x; // En pc en diagonal se mueve a vel * sqrt(2), pero en móvil va bien.
 					moveDirection.z = tempDirection.z;
+					
 				}
 				else
 				{
@@ -46,7 +75,7 @@ public class ControladorGusano : CharacterControllerParent
 					moveDirection.z = tempDirection.z;
 				}
 				//ROTACION            
-				if (tempDirection.magnitude > 0.1f)
+				if (tempDirection.magnitude > truncateNumber)
 				{
 					transform.forward = tempDirection.normalized;
 				}
@@ -57,7 +86,7 @@ public class ControladorGusano : CharacterControllerParent
 			if (onWall)
 			{
 				moveDirection = transform.TransformDirection(
-					new Vector3(SimpleInput.GetAxis("Horizontal"), SimpleInput.GetAxis("Vertical"), 0)) * speed;
+					new Vector3(SimpleInput.GetAxis("Horizontal"), SimpleInput.GetAxis("Vertical"), zero)) * speed;
 			}
 
 			//APLICO MOVIMIENTO

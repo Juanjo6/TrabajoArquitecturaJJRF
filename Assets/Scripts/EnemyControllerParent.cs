@@ -15,7 +15,7 @@ public class EnemyControllerParent : MonoBehaviour
 	// Componente agregado a un personaje móvil en el juego que le permite navegar la escena usando NavMesh
 	public NavMeshAgent agent;
 	// Parameters
-	public float speed = 6.0F;
+	public float speed = 6.0f;
 
 	// Variables del Raycast
 	RaycastHit hit;
@@ -39,7 +39,7 @@ public class EnemyControllerParent : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-		Debug.DrawRay(transform.position, (posObjetivo.position - transform.position), Color.red); // transform.forward * 10
+		//		Debug.DrawRay(transform.position, (posObjetivo.position - transform.position), Color.red); // transform.forward * 10
 		// Distincion entre rayo físico y dibujado
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
 

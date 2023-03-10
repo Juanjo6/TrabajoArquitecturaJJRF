@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyAttackState : EnemyState
 {
-    private float maxPlayerChaseDistance = 10f;
-
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
     public EnemyAttackState(EnemyControllerParent _ecp, GameObject _npc, Transform _player, float _speed, NavMeshAgent _agent)
