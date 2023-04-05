@@ -17,6 +17,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 	public bool personajeActivo = false;
 	protected float truncateNumber = 0.1f;
 	protected float zero = 0f;
+	[SerializeField] protected float impulse;
 
 	// Camera
 	public Transform piv_Cam;
@@ -35,15 +36,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
     	gravity = _gravity;
     }
 
-	// Used right now to do some testing
-    
-
-	// Contains the common movement of all characters
-	void Update()
-	{
-		
-	}
-
-	// Method used by some characters to fly
-	public abstract void Special();
+	// Methods used to activate characters abilities
+	public abstract void Special1();
+	public abstract void Special2();
 }

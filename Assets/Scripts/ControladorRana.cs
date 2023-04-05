@@ -54,6 +54,14 @@ public class ControladorRana : CharacterControllerParent
 		}
 	}
 
-	public override void Special() { }
+	public override void Special1() 
+	{
+		moveDirection.y = impulse;
+		//moveDirection.x = mo
+	}
 
+	public override void Special2() 
+	{
+		
+	}
 }

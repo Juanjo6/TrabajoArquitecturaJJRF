@@ -11,8 +11,6 @@ public class ControladorMariposa : CharacterControllerParent
 {
     public static ControladorMariposa instance;
 
-    [SerializeField] private float flyImpulse;
-
     private void Awake()
     {
         instance = this;
@@ -59,8 +57,9 @@ public class ControladorMariposa : CharacterControllerParent
 	}
 
 	// Makes the Mariposa go up a certain amount
-	public override void Special()
+	public override void Special1()
     {
-        moveDirection.y = flyImpulse;
+        moveDirection.y = impulse;
     }
+	public override void Special2() { }
 }

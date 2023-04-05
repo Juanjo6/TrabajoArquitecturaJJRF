@@ -10,10 +10,10 @@ using UnityEngine.AI;
 [AddComponentMenu("Aventura_Trófica/EnemyState")]
 public class EnemyState
 {
-    //Enumeración de estados por los que puede pasar el guarda
+    //Enumeración de estados por los que puede pasar el enemigo
     public enum STATE
     {
-        MOVING, ATTACK
+        MOVING, ATTACKGUSANO, ATTACKRANA
     };
 
     //Enumeración de eventos por los que debe pasar cada estado
@@ -22,7 +22,7 @@ public class EnemyState
         ENTER, UPDATE, EXIT
     };
 
-    // 
+    // Referencia usada en vez de un singleton
     protected EnemyControllerParent ecp;
 
     // Estado actual en el que se encuentra el enemigo. Es público por que le pregunto a dónde ir.
@@ -35,7 +35,7 @@ public class EnemyState
     // Uso UnityEngine.AI para mover enemigos por el NavMesh
     protected NavMeshAgent agent;
     // Target
-    protected Transform goal;
+    protected Transform goal;   // Para la navegación
     protected Transform transGusano;
     protected Transform transRana;
 
@@ -51,7 +51,7 @@ public class EnemyState
         // Referencia al script padre del enemigo
         ecp = _ecp;
         //Rellenamos las referencias previamente declaradas
-        this.npc = _npc;
+        npc = _npc;
         //Al usar el constructor le decimos que para ese estado entrará en su evento de ENTER
         currentEvent = EVENT.ENTER;
         transGusano = _transGusano;

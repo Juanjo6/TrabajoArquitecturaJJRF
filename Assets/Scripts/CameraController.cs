@@ -39,6 +39,7 @@ public class CameraController : MonoBehaviour
 		if (ControladorGusano.instance.personajeActivo == true && !ControladorGusano.instance.onWall)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
+
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
 		}
@@ -46,14 +47,15 @@ public class CameraController : MonoBehaviour
 		if (ControladorMariposa.instance.personajeActivo == true)
 		{
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
+
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
 		}
 
 		if (ControladorRana.instance.personajeActivo == true)
-		{
-			
+		{		
 			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
+
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
 		}

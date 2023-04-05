@@ -15,12 +15,19 @@ public class ControladorGusano : CharacterControllerParent
 	// In order to make testing
 	RaycastHit hit; // Variable que guarda con lo que ha chocado el raycast
 	public float raycastWallRange = 1.5f;
+	private float contador;
 
 	// Climbing
 	// What is consider a climbable wall to the character
 	public LayerMask milayerWall = 6;
 	public bool isThereWall = false;
 	public bool onWall = false;
+
+	// Specials
+	private float runningCounter;
+	private float runningTime;
+	private float runningSpeed;
+	private float originalSpeed;
 
 	private void Awake()
     {
@@ -63,8 +70,7 @@ public class ControladorGusano : CharacterControllerParent
 				{
 					// Debug.Log("is grounded");
 					moveDirection.x = tempDirection.x; // En pc en diagonal se mueve a vel * sqrt(2), pero en móvil va bien.
-					moveDirection.z = tempDirection.z;
-					
+					moveDirection.z = tempDirection.z;		
 				}
 				else
 				{
@@ -92,13 +98,19 @@ public class ControladorGusano : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
+		if(runningCounter > 0)
+        {
+			runningCounter -= Time.deltaTime;
+			if (runningCounter <= 0) speed = originalSpeed;
+		}
 	}
 
-	public override void Special() 
-	{ 
-		if(isThereWall == true)
-        {
-			onWall = false;
-        }
+	public override void Special1() 
+	{
+		// anim.SetTrigger("goDash");	Variar velocidad de animación
+		runningCounter = runningTime;
+		originalSpeed = speed;
+		speed = runningSpeed;
 	}
+	public override void Special2() { }
 }
