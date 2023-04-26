@@ -9,6 +9,8 @@ TagManager:
   - Bola
   - CharacterGusano
   - CharacterRana
+  - CharacterMariposa
+  - CharacterRenacuajo
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - Rana
   - Pruebas
   - Gusano
-  - 
-  - 
+  - Mariposa
+  - Renacuajo
   - 
   - 
   - 

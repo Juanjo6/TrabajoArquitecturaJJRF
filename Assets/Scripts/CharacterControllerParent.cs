@@ -38,5 +38,4 @@ public abstract class CharacterControllerParent : MonoBehaviour
 
 	// Methods used to activate characters abilities
 	public abstract void Special1();
-	public abstract void Special2();
 }

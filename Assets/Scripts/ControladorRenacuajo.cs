@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Class that contains the details of the Gusano character
+/// Class that contains the details of the Renacuajo character
 /// </summary>
 
-[AddComponentMenu("Aventura_Trófica/ControladorGusano")]
-public class ControladorGusano : CharacterControllerParent
+[AddComponentMenu("Aventura_Trófica/ControladorRenacuajo")]
+public class ControladorRenacuajo : CharacterControllerParent
 {
-    // Como estática es que solo puede existir una, le tengo que hacer una a cada subpersonaje
-    public static ControladorGusano instance;
+	// Como estática es que solo puede existir una, le tengo que hacer una a cada subpersonaje
+	public static ControladorRenacuajo instance;
 
 	// In order to make testing
 	RaycastHit hit; // Variable que guarda con lo que ha chocado el raycast
 	public float raycastWallRange = 1.5f;
 	private float contador;
 
-	// Climbing
+	// Climbing Waterfall
 	// What is consider a climbable wall to the character
 	public LayerMask milayerWall = 6;
 	public bool isThereWall = false;
@@ -32,14 +32,14 @@ public class ControladorGusano : CharacterControllerParent
 	public float runningCooldown;
 
 	private void Awake()
-    {
-        instance = this;
-    }
-    public ControladorGusano(CharacterController _controller, float _speed, float _gravity)
-       : base(_controller, _speed, _gravity)
-    {
+	{
+		instance = this;
+	}
+	public ControladorRenacuajo(CharacterController _controller, float _speed, float _gravity)
+	   : base(_controller, _speed, _gravity)
+	{
 
-    }
+	}
 	private void FixedUpdate()
 	{
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
@@ -61,7 +61,7 @@ public class ControladorGusano : CharacterControllerParent
 	private void Update()
 	{
 		if (personajeActivo == true)
-        {
+		{
 			Vector3 tempDirection = piv_Cam.TransformDirection(
 						new Vector3(SimpleInput.GetAxis("Horizontal"), zero, SimpleInput.GetAxis("Vertical"))) * speed;
 			if (!onWall)
@@ -72,14 +72,14 @@ public class ControladorGusano : CharacterControllerParent
 				{
 					// Debug.Log("is grounded");
 					moveDirection.x = tempDirection.x; // En pc en diagonal se mueve a vel * sqrt(2), pero en móvil va bien.
-					moveDirection.z = tempDirection.z;		
+					moveDirection.z = tempDirection.z;
 				}
 				else
 				{
 					//Movimiento en el aire
 					moveDirection.x = tempDirection.x;
 					moveDirection.y -= gravity * Time.deltaTime; // Ahora mismo esto haría que cuando se cae al suelo la velocidad se conservase
-					// Podría usar un math.clamp o alguna cosa para capar la gravedad
+																 // Podría usar un math.clamp o alguna cosa para capar la gravedad
 					moveDirection.z = tempDirection.z;
 				}
 				//ROTACION            
@@ -100,8 +100,8 @@ public class ControladorGusano : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
-		if(runningCounter > zero)
-        {
+		if (runningCounter > zero)
+		{
 			runningCounter -= Time.deltaTime;
 			if (runningCounter <= zero)
 			{
@@ -109,16 +109,16 @@ public class ControladorGusano : CharacterControllerParent
 				runningCooldownCounter = runningCooldown;
 			}
 		}
-		if(runningCooldownCounter > 0)
-        {
+		if (runningCooldownCounter > 0)
+		{
 			runningCooldownCounter -= Time.deltaTime;
-        }
+		}
 	}
 
-	public override void Special1() 
+	public override void Special1()
 	{
-		if(runningCooldownCounter <= zero)
-        {
+		if (runningCooldownCounter <= zero)
+		{
 			// anim.SetTrigger("goDash");	Variar velocidad de animación
 			runningCounter = runningTime;
 			originalSpeed = speed;

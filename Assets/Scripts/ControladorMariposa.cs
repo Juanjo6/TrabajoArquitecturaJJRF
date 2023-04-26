@@ -61,5 +61,4 @@ public class ControladorMariposa : CharacterControllerParent
     {
         moveDirection.y = impulse;
     }
-	public override void Special2() { }
 }
