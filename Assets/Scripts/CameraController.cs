@@ -59,7 +59,21 @@ public class CameraController : MonoBehaviour
 			transform.rotation = Quaternion.Lerp(
 				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
 		}
-		
+		if (ControladorRenacuajo.instance.personajeActivo == true && ControladorRenacuajo.instance.onWall)
+		{
+			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
+
+			transform.rotation = Quaternion.Lerp(
+				transform.rotation, personaje.transform.rotation, Time.deltaTime * smoothRotation);
+		}
+		if (ControladorRenacuajo.instance.personajeActivo == true && !ControladorRenacuajo.instance.onWall)
+		{
+			transform.position = Vector3.Lerp(transform.position, personaje.transform.position, Time.deltaTime * smoothTime);
+
+			transform.rotation = Quaternion.Lerp(
+				transform.rotation, pivoteAir.rotation, Time.deltaTime * smoothRotation);
+		}
+
 	}
 
 	// Method that makes camera work for one character or another
