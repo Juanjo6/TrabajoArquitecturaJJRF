@@ -11,7 +11,9 @@ public class ControladorRana : CharacterControllerParent
 {
     public static ControladorRana instance;
 
-    private void Awake()
+	public bool canJump;
+
+	private void Awake()
     {
         instance = this;
     }
@@ -52,11 +54,14 @@ public class ControladorRana : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
+        
 	}
 
 	public override void Special1() 
 	{
-		moveDirection.y = impulse;
-		//moveDirection.x = mo
+		if (this.controller.isGrounded)
+		{
+			moveDirection.y = impulse;
+		}
 	}
 }

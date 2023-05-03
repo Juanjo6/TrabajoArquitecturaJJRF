@@ -12,6 +12,8 @@ public class EnemyControllerParent : MonoBehaviour
 {
 	// Posición del personaje. Hace falta usarla porque es diferente de los goals del enemigo.
 	public Transform posGusano;
+	public Transform posMariposa;
+	public Transform posRenacuajo;
 	public Transform posRana;
 	// Componente agregado a un personaje móvil en el juego que le permite navegar la escena usando NavMesh
 	public NavMeshAgent agent;
@@ -37,6 +39,18 @@ public class EnemyControllerParent : MonoBehaviour
 		get { return canRaycastCharacterRana; }
 	}
 
+	protected bool canRaycastCharacterMariposa;
+	public bool CanRaycastCharacterMariposa
+	{
+		get { return canRaycastCharacterMariposa; }
+	}
+
+	protected bool canRaycastCharacterRenacuajo;
+	public bool CanRaycastCharacterRenacuajo
+	{
+		get { return canRaycastCharacterRenacuajo; }
+	}
+
 	// What the enemy is doing
 	protected EnemyState currentState;
 
@@ -48,6 +62,8 @@ public class EnemyControllerParent : MonoBehaviour
 	{
 		Debug.DrawRay(transform.position, (posGusano.position - transform.position), Color.red); // transform.forward * 10
 		Debug.DrawRay(transform.position, (posRana.position - transform.position), Color.red);
+		Debug.DrawRay(transform.position, (posMariposa.position - transform.position), Color.red);
+		Debug.DrawRay(transform.position, (posRenacuajo.position - transform.position), Color.red);
 		// Distincion entre rayo físico y dibujado
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
 
@@ -76,12 +92,39 @@ public class EnemyControllerParent : MonoBehaviour
 		{
 			canRaycastCharacterRana = false;
 		}
+
+		if (Physics.Raycast(transform.position, (posMariposa.position - transform.position),
+			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
+		{
+			if (hit.collider.CompareTag("CharacterMariposa"))
+			{
+				canRaycastCharacterMariposa = true;
+			}
+		}
+		else
+		{
+			canRaycastCharacterMariposa = false;
+		}
+
+		if (Physics.Raycast(transform.position, (posRenacuajo.position - transform.position),
+			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
+		{
+			if (hit.collider.CompareTag("CharacterRenacuajo"))
+			{
+				canRaycastCharacterRenacuajo = true;
+			}
+		}
+		else
+		{
+			canRaycastCharacterRenacuajo = false;
+		}
 	}
 
     private void Start()
     {
 		// Añadir ifs para los distintos enemigos
-		currentState = new EnemyMovingState(this, this.gameObject, this.posGusano, this.posRana, this.speed, this.agent);
+		currentState = new EnemyMovingState(this, this.gameObject, this.posGusano, posMariposa, this.posRana,
+			posRenacuajo, this.speed, this.agent);
 	}
 
 	private void Update()

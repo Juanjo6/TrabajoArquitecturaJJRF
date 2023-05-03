@@ -12,7 +12,7 @@ public class DamagePlayer : MonoBehaviour
         }
         if (collision.collider.tag == "CharacterGusano")
         {
-            //GusanoHealthController.instance.DealWithDamage();
+            GusanoHealthController.instance.DealWithDamage();
         }
         if (collision.collider.tag == "CharacterRana")
         {

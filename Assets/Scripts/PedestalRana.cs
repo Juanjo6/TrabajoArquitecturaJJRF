@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class PedestalRana : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    public GameObject ranaChar;
+    public GameObject renacuajoChar;
+    public GameObject renacuajoButton;
+    public GameObject ranaButton;
+    public GameObject ranaInterface;
+    public GameObject renacuajoInterface;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.tag == "CharacterRenacuajo")
+        if (other.tag == "CharacterRenacuajo")
         {
             GoToRana();
         }
@@ -14,6 +21,13 @@ public class PedestalRana : MonoBehaviour
 
     private void GoToRana()
     {
-
+        renacuajoChar.SetActive(false);
+        ranaChar.SetActive(true);
+        renacuajoButton.SetActive(false);
+        ranaButton.SetActive(true);
+        ranaInterface.SetActive(true);
+        renacuajoInterface.SetActive(false);
+        CameraController.instance.CambiarPj(ranaChar);
+        CameraChange.instance.DisplayCameraRana2();
     }
 }

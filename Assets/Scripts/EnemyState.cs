@@ -13,7 +13,7 @@ public class EnemyState
     //Enumeración de estados por los que puede pasar el enemigo
     public enum STATE
     {
-        MOVING, ATTACKGUSANO, ATTACKRANA
+        MOVING, ATTACKGUSANO, ATTACKRANA, ATTACKMARIPOSA, ATTACKRENACUAJO
     };
 
     //Enumeración de eventos por los que debe pasar cada estado
@@ -37,7 +37,9 @@ public class EnemyState
     // Target
     protected Transform goal;   // Para la navegación
     protected Transform transGusano;
+    protected Transform transMariposa;
     protected Transform transRana;
+    protected Transform transRenacuajo;
 
     // Referencia a las clases derivadas por las que nos vamos a mover entre estados
     protected EnemyState nextState;
@@ -45,8 +47,8 @@ public class EnemyState
     protected float speed;
 
     //Creamos el constructor de la clase State
-    public EnemyState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transRana, float _speed, 
-        NavMeshAgent _agent)
+    public EnemyState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transMariposa,
+        Transform _transRana, Transform _transRenacuajo, float _speed, NavMeshAgent _agent)
     {
         // Referencia al script padre del enemigo
         ecp = _ecp;
@@ -55,7 +57,9 @@ public class EnemyState
         //Al usar el constructor le decimos que para ese estado entrará en su evento de ENTER
         currentEvent = EVENT.ENTER;
         transGusano = _transGusano;
+        transMariposa = _transMariposa;
         transRana = _transRana;
+        transRenacuajo = _transRenacuajo;
         speed = _speed;
         agent = _agent;
     }
@@ -87,12 +91,11 @@ public class EnemyState
         // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
         Vector3 direction = transGusano.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
-        // Debug.Log("angle = " + angle);
+        //Debug.Log("angle = " + angle);
         if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterGusano)
         {
             return true;
         }
-
         return false;
     }
 
@@ -104,7 +107,30 @@ public class EnemyState
         // Debug.Log("angle = " + angle);
         if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterRana)
         {
-            // Debug.Log("hola");
+            return true;
+        }
+        return false;
+    }
+    public bool CanSeeMariposa()
+    {
+        // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
+        Vector3 direction = transMariposa.position - npc.transform.position;
+        float angle = Vector3.Angle(direction, npc.transform.forward);
+        // Debug.Log("angle = " + angle);
+        if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterMariposa)
+        {
+            return true;
+        }
+        return false;
+    }
+    public bool CanSeeRenacuajo()
+    {
+        // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
+        Vector3 direction = transRenacuajo.position - npc.transform.position;
+        float angle = Vector3.Angle(direction, npc.transform.forward);
+        // Debug.Log("angle = " + angle);
+        if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterRenacuajo)
+        {
             return true;
         }
         return false;

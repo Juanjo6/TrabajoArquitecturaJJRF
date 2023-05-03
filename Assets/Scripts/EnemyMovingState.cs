@@ -7,9 +7,9 @@ public class EnemyMovingState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyMovingState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transRana,
-        float _speed, NavMeshAgent _agent)
-        : base(_ecp, _npc, _transGusano, _transRana, _speed, _agent)
+    public EnemyMovingState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transMariposa,
+        Transform _transRana, Transform _transRenacuajo, float _speed, NavMeshAgent _agent)
+        : base(_ecp, _npc, _transGusano, _transMariposa, _transRana, _transRenacuajo, _speed, _agent)
     {
         //El estado actual en este caso es IDLE
         currentState = STATE.MOVING;
@@ -30,15 +30,34 @@ public class EnemyMovingState : EnemyState
         //Si el guardia puede ver al enemigo
         if (CanSeeGusano())
         {
+            Debug.Log("hi");
             //El siguiente estado entonces sería el estado de Persecución
-            nextState = new EnemyAttackGusanoState(ecp, npc, transGusano, transRana, speed, agent);
+            nextState = new EnemyAttackGusanoState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,
+                speed, agent);
+            //El evento ahora será EXIT
+            currentEvent = EVENT.EXIT;
+        }
+        if (CanSeeMariposa())
+        {
+            //El siguiente estado entonces sería el estado de Persecución
+            nextState = new EnemyAttackMariposaState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,
+                speed, agent);
             //El evento ahora será EXIT
             currentEvent = EVENT.EXIT;
         }
         if (CanSeeRana())
         {
             //El siguiente estado entonces sería el estado de Persecución
-            nextState = new EnemyAttackRanaState(ecp, npc, transGusano, transRana, speed, agent);
+            nextState = new EnemyAttackRanaState(ecp, npc, transGusano, transMariposa, transRana,  transRenacuajo,
+                speed, agent);
+            //El evento ahora será EXIT
+            currentEvent = EVENT.EXIT;
+        }
+        if (CanSeeRenacuajo())
+        {
+            //El siguiente estado entonces sería el estado de Persecución
+            nextState = new EnemyAttackRenacuajoState(ecp, npc, transGusano, transMariposa, transRana,  transRenacuajo,
+                speed, agent);
             //El evento ahora será EXIT
             currentEvent = EVENT.EXIT;
         }

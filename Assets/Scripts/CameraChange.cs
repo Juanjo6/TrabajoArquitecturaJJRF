@@ -9,6 +9,8 @@ using UnityEngine;
 [AddComponentMenu("Aventura_Trófica/CameraChange")]
 public class CameraChange : MonoBehaviour
 {
+    public static CameraChange instance;
+
     [field: SerializeField] private GameObject pivoteCamara1;
     [field: SerializeField] private GameObject pivoteCamara2;
     [field: SerializeField] private GameObject pivoteCamara3;
@@ -19,6 +21,11 @@ public class CameraChange : MonoBehaviour
     [field: SerializeField] private GameObject character4;
     [field: SerializeField] private GameObject ToAirButtonSet; // Para acceder a gusano y mariposa
     [field: SerializeField] private GameObject ToWaterButtonSet; // Para acceder a renacuajo y rana
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void DisplayCameraGusano1()
     {

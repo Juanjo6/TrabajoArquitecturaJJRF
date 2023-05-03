@@ -15,7 +15,7 @@ public class ControladorGusano : CharacterControllerParent
 	// In order to make testing
 	RaycastHit hit; // Variable que guarda con lo que ha chocado el raycast
 	public float raycastWallRange = 1.5f;
-	private float contador;
+	// private float contador;
 
 	// Climbing
 	// What is consider a climbable wall to the character
@@ -96,7 +96,6 @@ public class ControladorGusano : CharacterControllerParent
 				moveDirection = transform.TransformDirection(
 					new Vector3(SimpleInput.GetAxis("Horizontal"), SimpleInput.GetAxis("Vertical"), zero)) * speed;
 			}
-
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}

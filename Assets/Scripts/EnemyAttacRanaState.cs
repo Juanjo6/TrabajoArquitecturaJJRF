@@ -7,9 +7,10 @@ public class EnemyAttackRanaState : EnemyState
 {
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
-    public EnemyAttackRanaState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transRana,
-        float _speed, NavMeshAgent _agent)
-        : base(_ecp, _npc, _transGusano, _transRana, _speed, _agent)
+    public EnemyAttackRanaState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano,
+        Transform _transMariposa, Transform _transRana, Transform _transRenacuajo, float _speed, 
+        NavMeshAgent _agent)
+        : base(_ecp, _npc, _transGusano, _transMariposa, _transRana, _transRenacuajo, _speed, _agent)
     {
         //El estado actual en este caso es PURSUE
         currentState = STATE.ATTACKRANA;
@@ -32,7 +33,8 @@ public class EnemyAttackRanaState : EnemyState
         if (distanceRana > ecp.visionDistance && !CanSeeRana())
         {
             //El guardia pasa al estado de patrulla
-            nextState = new EnemyMovingState(ecp, npc, transGusano, transRana, speed, agent);
+            nextState = new EnemyMovingState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,
+                speed, agent);
 
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
