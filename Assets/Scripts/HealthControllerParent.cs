@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class HealthControllerParent : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    protected int zero = 0;
+
+    public int currentHealth, maxHealth;
+
+    //Variable de invencibilidad.
+    public float invincibleLength;
+    public float invincibleCounter; //Contador del tiempo en activa de la invencibilidad
+
+    public HealthControllerParent(int _currentHealth, float _invincibleLength)
     {
-        
+        currentHealth = _currentHealth;
+        invincibleLength = _invincibleLength;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GoBackToMenu()
     {
-        
+        Time.timeScale = 1f; // Si no el juego seguiría pausado en el menú
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MenuInicial");
     }
 }
