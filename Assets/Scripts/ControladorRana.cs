@@ -11,7 +11,7 @@ public class ControladorRana : CharacterControllerParent
 {
     public static ControladorRana instance;
 
-	public bool canJump;
+	public short Yspeed;
 
 	private void Awake()
     {
@@ -41,7 +41,6 @@ public class ControladorRana : CharacterControllerParent
 				{
 					//Movimiento en el aire
 					moveDirection.x = tempDirection.x;
-					moveDirection.y -= gravity * Time.deltaTime; // Ahora mismo esto haría que cuando se cae al suelo la velocidad se conservase
 					// Podría usar un math.clamp o alguna cosa para capar la gravedad
 					moveDirection.z = tempDirection.z;
 				}
@@ -54,13 +53,22 @@ public class ControladorRana : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
-        
+		if (controller.isGrounded)
+        {
+			
+		}
+        else
+        {
+			moveDirection.y -= gravity * Time.deltaTime;
+		}
 	}
 
 	public override void Special1() 
 	{
 		if (this.controller.isGrounded)
 		{
+			Yspeed = 1;
+
 			moveDirection.y = impulse;
 		}
 	}

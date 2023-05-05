@@ -39,6 +39,13 @@ public class EnemyAttackRenacuajoState : EnemyState
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
         }
+        if (CanSeeRana())
+        {
+            nextState = new EnemyAttackRanaState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,
+                speed, agent);
+
+            currentEvent = EVENT.EXIT;
+        }
         if (CanSeeGusano())
         {
             nextState = new EnemyAttackGusanoState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,

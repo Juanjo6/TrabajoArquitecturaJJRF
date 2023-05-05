@@ -60,10 +60,10 @@ public class EnemyControllerParent : MonoBehaviour
 	}
 	private void FixedUpdate()
 	{
-		Debug.DrawRay(transform.position, (posGusano.position - transform.position), Color.red); // transform.forward * 10
-		Debug.DrawRay(transform.position, (posRana.position - transform.position), Color.red);
-		Debug.DrawRay(transform.position, (posMariposa.position - transform.position), Color.red);
-		Debug.DrawRay(transform.position, (posRenacuajo.position - transform.position), Color.red);
+		//Debug.DrawRay(transform.position, (posGusano.position - transform.position), Color.red); // transform.forward * 10
+		//Debug.DrawRay(transform.position, (posRana.position - transform.position), Color.red);
+		//Debug.DrawRay(transform.position, (posMariposa.position - transform.position), Color.red);
+		//Debug.DrawRay(transform.position, (posRenacuajo.position - transform.position), Color.red);
 		// Distincion entre rayo físico y dibujado
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
 
@@ -92,12 +92,13 @@ public class EnemyControllerParent : MonoBehaviour
 		{
 			canRaycastCharacterRana = false;
 		}
-
 		if (Physics.Raycast(transform.position, (posMariposa.position - transform.position),
 			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
 		{
+			
 			if (hit.collider.CompareTag("CharacterMariposa"))
 			{
+				
 				canRaycastCharacterMariposa = true;
 			}
 		}

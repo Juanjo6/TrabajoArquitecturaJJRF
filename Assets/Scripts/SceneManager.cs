@@ -10,6 +10,17 @@ public class SceneManager : MonoBehaviour
 
     //bool inCredits, inExitMenu;
 
+    public GameObject youWin;
+
+    private void Update()
+    {
+        if(WinConditionMariposa.instance.winConditionMariposa == true &&
+            WinConditionRana.instance.winConditionRana == true)
+        {
+            youWin.SetActive(true);
+        }
+    }
+
     //TO ENTER PLAY MENU
     public void PlayGame()
     {

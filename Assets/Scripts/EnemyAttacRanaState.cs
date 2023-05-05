@@ -39,6 +39,13 @@ public class EnemyAttackRanaState : EnemyState
             //Pasamos al evento de Exit de este estado
             currentEvent = EVENT.EXIT;
         }
+        if (CanSeeMariposa())
+        {
+            nextState = new EnemyAttackMariposaState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,
+                speed, agent);
+
+            currentEvent = EVENT.EXIT;
+        }
     }
     //Sobreescribimos el evento Exit de ese estado 
     public override void Exit()

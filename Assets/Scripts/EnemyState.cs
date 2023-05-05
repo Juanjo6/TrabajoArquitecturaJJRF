@@ -91,7 +91,7 @@ public class EnemyState
         // Reference used to check the distance between the owner of this script and his target, tipically enemy and player
         Vector3 direction = transGusano.position - npc.transform.position;
         float angle = Vector3.Angle(direction, npc.transform.forward);
-        //Debug.Log("angle = " + angle);
+        // Debug.Log("angle = " + angle);
         if (direction.magnitude < ecp.visionDistance && angle < ecp.visionAngle && ecp.CanRaycastCharacterGusano)
         {
             return true;

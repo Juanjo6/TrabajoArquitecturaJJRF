@@ -30,7 +30,6 @@ public class EnemyMovingState : EnemyState
         //Si el guardia puede ver al enemigo
         if (CanSeeGusano())
         {
-            Debug.Log("hi");
             //El siguiente estado entonces sería el estado de Persecución
             nextState = new EnemyAttackGusanoState(ecp, npc, transGusano, transMariposa, transRana, transRenacuajo,
                 speed, agent);

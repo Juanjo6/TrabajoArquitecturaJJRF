@@ -14,7 +14,6 @@ public class EnemyAttackMariposaState : EnemyState
     {
         //El estado actual en este caso es PURSUE
         currentState = STATE.ATTACKMARIPOSA;
-
     }
 
     //Sobreescribimos el evento Enter de ese estado 
