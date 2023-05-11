@@ -67,6 +67,7 @@ public class EnemyControllerParent : MonoBehaviour
 		// Distincion entre rayo físico y dibujado
 		// Comprueba si hay un muro(objeto) con esa layer con un raycast
 
+		// Comprueba si ve a cada uno de los personajes
 		if (Physics.Raycast(transform.position, (posGusano.position - transform.position), 
 			out hit, visionDistance, milayerObjetivo)) // Necesito estos para que los detecte antes que un jugador tras ellos
 		{

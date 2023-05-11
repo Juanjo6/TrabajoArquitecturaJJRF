@@ -11,6 +11,7 @@ TagManager:
   - CharacterRana
   - CharacterMariposa
   - CharacterRenacuajo
+  - Checkpoint1
   layers:
   - Default
   - TransparentFX
