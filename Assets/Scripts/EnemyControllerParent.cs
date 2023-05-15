@@ -10,6 +10,9 @@ using UnityEngine.AI;
 [AddComponentMenu("Aventura_Trófica/EnemyControllerParent")]
 public class EnemyControllerParent : MonoBehaviour
 {
+	private List<Transform> checkpoints = new List<Transform>();
+	public List<Transform> Checkpoints { get { return checkpoints; } }
+
 	// Posición del personaje. Hace falta usarla porque es diferente de los goals del enemigo.
 	public Transform posGusano;
 	public Transform posMariposa;
@@ -58,6 +61,20 @@ public class EnemyControllerParent : MonoBehaviour
 	{
 		speed = _speed;
 	}
+
+	private void Start()
+	{
+		// Añadir ifs para los distintos enemigos
+		currentState = new EnemyMovingState(this, this.gameObject, this.posGusano, posMariposa, this.posRana,
+			posRenacuajo, this.speed, this.agent);
+
+		//checkpoints.Clear();
+		//foreach(Transform child in waypointParent)
+        {
+			//waypoints.Add(child);
+        }
+	}
+
 	private void FixedUpdate()
 	{
 		//Debug.DrawRay(transform.position, (posGusano.position - transform.position), Color.red); // transform.forward * 10
@@ -120,13 +137,6 @@ public class EnemyControllerParent : MonoBehaviour
 		{
 			canRaycastCharacterRenacuajo = false;
 		}
-	}
-
-    private void Start()
-    {
-		// Añadir ifs para los distintos enemigos
-		currentState = new EnemyMovingState(this, this.gameObject, this.posGusano, posMariposa, this.posRana,
-			posRenacuajo, this.speed, this.agent);
 	}
 
 	private void Update()

@@ -27,6 +27,7 @@ public abstract class CharacterControllerParent : MonoBehaviour
 
 	// Internal management of the movement
 	protected Vector3 moveDirection = Vector3.zero;
+	protected Vector3 gravedad = Vector3.zero; // Variable usada para que el pj caiga cuando se cambia en el aire
 
 	// Constructor used to initialize this class' instances
     public CharacterControllerParent (CharacterController _controller, float _speed, float _gravity)

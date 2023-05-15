@@ -41,7 +41,7 @@ public class ControladorRana : CharacterControllerParent
 				{
 					//Movimiento en el aire
 					moveDirection.x = tempDirection.x;
-					// Podría usar un math.clamp o alguna cosa para capar la gravedad
+					moveDirection.y -= gravity * Time.deltaTime;
 					moveDirection.z = tempDirection.z;
 				}
 				//ROTACION            
@@ -49,17 +49,16 @@ public class ControladorRana : CharacterControllerParent
 				{
 					transform.forward = tempDirection.normalized;
 				}
-
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
-		if (controller.isGrounded)
-        {
-			
-		}
-        else
-        {
-			moveDirection.y -= gravity * Time.deltaTime;
+		if (personajeActivo == false)
+		{
+				if (!controller.isGrounded)
+				{
+					gravedad.y -= gravity * Time.deltaTime;
+					controller.Move(gravedad * Time.deltaTime);
+				}
 		}
 	}
 

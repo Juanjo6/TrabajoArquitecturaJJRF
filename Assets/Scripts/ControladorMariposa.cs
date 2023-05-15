@@ -54,6 +54,15 @@ public class ControladorMariposa : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
+
+		if (personajeActivo == false)
+		{
+			if (!controller.isGrounded)
+			{
+				gravedad.y -= gravity * Time.deltaTime;
+				controller.Move(gravedad * Time.deltaTime);
+			}
+		}
 	}
 
 	// Makes the Mariposa go up a certain amount

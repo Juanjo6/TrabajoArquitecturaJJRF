@@ -11,7 +11,6 @@ public class AudioManager : MonoBehaviour
     {
         instance = this;
     }
-
     public void PlayMusic(int soundToPlay)
     {
         // Desactivamos el sonido si ya se estuviera reproduciendo

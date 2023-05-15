@@ -100,6 +100,19 @@ public class ControladorRenacuajo : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
+
+		if (personajeActivo == false)
+		{
+			if (!onWall)
+			{
+				if (!controller.isGrounded)
+				{
+					gravedad.y -= gravity * Time.deltaTime;
+					controller.Move(gravedad * Time.deltaTime);
+				}
+			}
+		}
+
 		if (runningCounter > zero)
 		{
 			runningCounter -= Time.deltaTime;

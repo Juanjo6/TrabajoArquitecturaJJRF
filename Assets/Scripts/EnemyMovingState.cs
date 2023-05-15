@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class EnemyMovingState : EnemyState
 {
+    int currentIndex = -1;
+    float waypointMaxDistance = 1000;
+    int uno = 1;
+    int zero = 0;
+
     //Usamos el constructor de la clase STATE para pasar todas las referencias necesarias para la consecución correcta de este estado
     //Creo un constructor tomando las cosas que son compartidas con la plantilla de Estado
     public EnemyMovingState(EnemyControllerParent _ecp, GameObject _npc, Transform _transGusano, Transform _transMariposa,
@@ -25,9 +30,22 @@ public class EnemyMovingState : EnemyState
     //Sobreescribimos el evento Update de ese estado 
     public override void Update()
     {
-        // Aquí va el código que le hace navegar el nav mesh. Por lo tanto, cada enemigo tendrá un nav mesh distinto
+       /* //Si la distancia del agent al punto de patrulla es menor que 1
+        //Esto equivale al operador ternario de abajo
+        if (agent.remainingDistance < uno)
+        {
+            //Si he llegado al final de la lista de puntos
+            if (currentIndex >= ecp.Checkpoints.Count - uno)
+                //Comenzamos la lista de nuevo por el principio
+                currentIndex = zero;
+            else
+                //Pasamos al siguiente punto de patrulla de la lista
+                currentIndex++;
+            //Le pasamos el destino de patrulla
+            agent.SetDestination(ecp.Checkpoints[currentIndex].position);
+        }*/
 
-        //Si el guardia puede ver al enemigo
+            //Si el guardia puede ver al enemigo
         if (CanSeeGusano())
         {
             //El siguiente estado entonces sería el estado de Persecución

@@ -79,7 +79,7 @@ public class ControladorGusano : CharacterControllerParent
 					//Movimiento en el aire
 					moveDirection.x = tempDirection.x;
 					moveDirection.y -= gravity * Time.deltaTime; // Ahora mismo esto haría que cuando se cae al suelo la velocidad se conservase
-					// Podría usar un math.clamp o alguna cosa para capar la gravedad
+																 // Podría usar un math.clamp o alguna cosa para capar la gravedad
 					moveDirection.z = tempDirection.z;
 				}
 				//ROTACION            
@@ -99,7 +99,19 @@ public class ControladorGusano : CharacterControllerParent
 			//APLICO MOVIMIENTO
 			controller.Move(moveDirection * Time.deltaTime);
 		}
-		if(runningCounter > zero)
+		if (personajeActivo == false)
+        {
+			if (!onWall)
+            {
+				if (!controller.isGrounded)
+                {
+					gravedad.y -= gravity * Time.deltaTime;
+					controller.Move(gravedad * Time.deltaTime);
+				}			
+			}		
+		}
+			
+		if (runningCounter > zero)
         {
 			runningCounter -= Time.deltaTime;
 			if (runningCounter <= zero)
